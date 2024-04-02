@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 
-function App() {
+import PokemonList from "./components/PokemonList";
+import Searcher from "./components/Searcher";
+import getPokemon from "./api";
+
+import { useEffect } from "react";
+import { Col } from "antd";
+import { connect } from "react-redux";
+import { setPokemonsActions } from "./actions";
+
+function App({ pokemons, setPokemons }) {
+  useEffect(() => {
+    const fetchPokemons = async () => {
+      const pokemonList = await getPokemon();
+      setPokemons(pokemonList);
+    };
+
+    fetchPokemons();
+  }, []); // empty array is only for onMount event
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>pokedux</h1>
+      <Col span={8} offset={8}>
+        <Searcher />
+      </Col>
+      <Col span={16} offset={2}>
+        <PokemonList pokemons={pokemons} />
+      </Col>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  pokemons: state.pokemons,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setPokemons: (value) => dispatch(setPokemonsActions(value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
