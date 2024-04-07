@@ -1,3 +1,8 @@
 .App {
   margin-top: 3rem;
 }
+
+.PokemonList {
+  display: flex;
+  flex-flow: wrap;
+}
