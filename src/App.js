@@ -5,13 +5,15 @@ import Searcher from "./components/Searcher";
 
 import { getPokemon } from "./api";
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { shallowEqual, useSelector, useDispatch } from "react-redux";
 import { Col, Spin } from "antd";
 import { getPokemonsWithDetails, setLoading } from "./actions";
 
 function App() {
-  const pokemons = useSelector((state) => state.get("pokemons")).toJS();
-  const loading = useSelector((state) => state.get("loading"));
+  const pokemons = useSelector((state) =>
+    state.getIn(["data", "pokemons"], shallowEqual)
+  ).toJS();
+  const loading = useSelector((state) => state.getIn(["ui", "loading"]));
 
   const distpach = useDispatch();
 
