@@ -1,20 +1,5 @@
-import { SET_LOADING, SET_POKEMONS, SET_FAVOURITE } from "./types";
 import { getPokemonDetails } from "../api";
-
-export const setPokemons = (payload) => ({
-  type: SET_POKEMONS,
-  payload,
-});
-
-export const setLoading = (payload) => ({
-  type: SET_LOADING,
-  payload,
-});
-
-export const setFavorite = (payload) => ({
-  type: SET_FAVOURITE,
-  payload,
-});
+import { setPokemons } from "../slices/dataSlice";
 
 export const getPokemonsWithDetails =
   (pokemons = []) =>
