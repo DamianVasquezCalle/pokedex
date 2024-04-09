@@ -10,8 +10,8 @@ import { Col, Spin } from "antd";
 import { getPokemonsWithDetails, setLoading } from "./actions";
 
 function App() {
-  const pokemons = useSelector((state) => state.pokemons);
-  const loading = useSelector((state) => state.loading);
+  const pokemons = useSelector((state) => state.get("pokemons")).toJS();
+  const loading = useSelector((state) => state.get("loading"));
 
   const distpach = useDispatch();
 
